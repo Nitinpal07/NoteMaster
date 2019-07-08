@@ -18,6 +18,9 @@ public class NoteActivity extends AppCompatActivity {
 
     public static final String NOTE_POSITION ="nitin.luckyproject.notemaster.NOTE_POSITION";
     public static final int POSITION_NOT_SET = -1;
+    public static final String ORIGINAL_NOTE_COURSE_ID="nitin.luckyproject.notemaster.ORIGINAL_NOTE_COURSE_ID";
+    public static final String ORIGINAL_NOTE_TITLE="nitin.luckyproject.notemaster.ORIGINAL_NOTE_TITLE";
+    public static final String ORIGINAL_NOTE_TEXT="nitin.luckyproject.notemaster.ORIGINAL_NOTE_TEXT";
     private NoteInfo mNote;
     private boolean mIsNewNote;
     private Spinner mSpinnercourse;
@@ -48,7 +51,13 @@ public class NoteActivity extends AppCompatActivity {
 
 
         readDisplayStateValues();
-        saveOriginalNoteValue();
+        if(savedInstanceState ==null){
+            saveOriginalNoteValue();
+        }
+        else{
+            restoreOriginalNoteValue(savedInstanceState);
+        }
+
 
         mTextNoteTitle = findViewById(R.id.note_title);
         mTextNoteText = findViewById(R.id.note_desc);
@@ -58,6 +67,13 @@ public class NoteActivity extends AppCompatActivity {
 
 
     }
+
+    private void restoreOriginalNoteValue(Bundle savedInstanceState) {
+        mOriginalNoteCourseId = savedInstanceState.getString(ORIGINAL_NOTE_COURSE_ID);
+        mOriginalNoteTitle =savedInstanceState.getString(ORIGINAL_NOTE_TITLE);
+        mOriginalNoteText =savedInstanceState.getString(ORIGINAL_NOTE_TEXT);
+    }
+
 
     private void saveOriginalNoteValue() {
         if(mIsNewNote){
@@ -92,6 +108,14 @@ public class NoteActivity extends AppCompatActivity {
         mNote.setCourse(course);
         mNote.setTitle(mOriginalNoteTitle);
         mNote.setText(mOriginalNoteText);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(ORIGINAL_NOTE_COURSE_ID,mOriginalNoteCourseId);
+        outState.putString(ORIGINAL_NOTE_TEXT,mOriginalNoteTitle);
+        outState.putString(ORIGINAL_NOTE_TEXT,mOriginalNoteText);
     }
 
     private void saveNote() {
