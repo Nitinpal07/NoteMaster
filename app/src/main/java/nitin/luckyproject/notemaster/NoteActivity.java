@@ -23,6 +23,8 @@ public class NoteActivity extends AppCompatActivity {
     private Spinner mSpinnercourse;
     private EditText mTextNoteTitle;
     private EditText mTextNoteText;
+    private int mNoteposition;
+    private boolean mIsCancelling;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,28 @@ public class NoteActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(mIsCancelling){
+            if(mIsNewNote) {
+                DataManager.getInstance().removeNote(mNoteposition);
+            }
+        }
+        else{
+            saveNote();
+        }
+
+    }
+
+    private void saveNote() {
+        mNote.setCourse((CourseInfo) mSpinnercourse.getSelectedItem());
+        mNote.setTitle(mTextNoteTitle.getText().toString());
+        mNote.setText(mTextNoteText.getText().toString());
+
+    }
+
     private void displayNote(Spinner spinnerCourses, EditText textNoteTitle, EditText textNoteText) {
         List<CourseInfo> courses = DataManager.getInstance().getCourses();
         int courseIndex = courses.indexOf(mNote.getCourse());
@@ -59,9 +83,20 @@ public class NoteActivity extends AppCompatActivity {
         Intent intent = getIntent();
         int position = intent.getIntExtra(NOTE_POSITION, POSITION_NOT_SET);
         mIsNewNote = position == POSITION_NOT_SET;
-        if(!mIsNewNote){
-            mNote=DataManager.getInstance().getNotes().get(position);
+        if(mIsNewNote){
+            createNewNote();
         }
+        else
+            {
+                mNote=DataManager.getInstance().getNotes().get(position);
+
+            }
+    }
+
+    private void createNewNote() {
+        DataManager dm =DataManager.getInstance();
+        mNoteposition = dm.createNewNote();
+        mNote =dm.getNotes().get(mNoteposition);
     }
 
     @Override
@@ -85,6 +120,10 @@ public class NoteActivity extends AppCompatActivity {
         if (id == R.id.action_share) {
             sendEmail();
             return true;
+        }
+        if (id == R.id.action_cancel) {
+            mIsCancelling = true;
+            finish();
         }
 
 
