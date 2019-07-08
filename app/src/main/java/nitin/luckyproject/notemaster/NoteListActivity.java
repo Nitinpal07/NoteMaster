@@ -14,7 +14,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class NoteListActivity extends AppCompatActivity {
@@ -54,8 +53,8 @@ public class NoteListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent =new Intent(NoteListActivity.this,NoteActivity.class);
-                NoteInfo note = (NoteInfo) listNotes.getItemAtPosition(i);
-                intent.putExtra(NoteActivity.NOTE_INFO,note);
+//                NoteInfo note = (NoteInfo) listNotes.getItemAtPosition(i);
+                intent.putExtra(NoteActivity.NOTE_POSITION,i);
                 startActivity(intent);
 
             }

@@ -3,9 +3,6 @@ package nitin.luckyproject.notemaster;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Jim.
- */
 
 public class DataManager {
     private static DataManager ourInstance = null;
@@ -23,11 +20,11 @@ public class DataManager {
     }
 
     public String getCurrentUserName() {
-        return "Jim Wilson";
+        return "Nitin Pal";
     }
 
     public String getCurrentUserEmail() {
-        return "jimw@jwhh.com";
+        return "nitinluck0123@gmail.com";
     }
 
     public List<NoteInfo> getNotes() {

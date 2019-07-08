@@ -3,13 +3,9 @@ package nitin.luckyproject.notemaster;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
@@ -20,30 +16,35 @@ import java.util.List;
 
 public class NoteActivity extends AppCompatActivity {
 
-    public static final String NOTE_INFO ="nitin.luckyproject.notemaster.NOTE_INFO";
+    public static final String NOTE_POSITION ="nitin.luckyproject.notemaster.NOTE_POSITION";
+    public static final int POSITION_NOT_SET = -1;
     private NoteInfo mNote;
     private boolean mIsNewNote;
+    private Spinner mSpinnercourse;
+    private EditText mTextNoteTitle;
+    private EditText mTextNoteText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Spinner spinnercourse = findViewById(R.id.spinner_course);
+        mSpinnercourse = findViewById(R.id.spinner_course);
         List<CourseInfo> courses = DataManager.getInstance().getCourses();
         ArrayAdapter<CourseInfo> adapterCourses =
                 new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, courses);
         adapterCourses.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnercourse.setAdapter(adapterCourses);
+        mSpinnercourse.setAdapter(adapterCourses);
 
 
         readDisplayStateValues();
 
-        EditText textNoteTitle =  findViewById(R.id.note_title);
-        EditText textNoteText =   findViewById(R.id.note_desc);
+        mTextNoteTitle = findViewById(R.id.note_title);
+        mTextNoteText = findViewById(R.id.note_desc);
 
         if(!mIsNewNote)
-            displayNote(spinnercourse, textNoteTitle, textNoteText);
+            displayNote(mSpinnercourse, mTextNoteTitle, mTextNoteText);
 
 
     }
@@ -56,8 +57,11 @@ public class NoteActivity extends AppCompatActivity {
     }
     private void readDisplayStateValues() {
         Intent intent = getIntent();
-        mNote = intent.getParcelableExtra(NOTE_INFO);
-        mIsNewNote = mNote == null;
+        int position = intent.getIntExtra(NOTE_POSITION, POSITION_NOT_SET);
+        mIsNewNote = position == POSITION_NOT_SET;
+        if(!mIsNewNote){
+            mNote=DataManager.getInstance().getNotes().get(position);
+        }
     }
 
     @Override
@@ -78,7 +82,27 @@ public class NoteActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         }
+        if (id == R.id.action_share) {
+            sendEmail();
+            return true;
+        }
+
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void sendEmail() {
+
+
+        CourseInfo course = (CourseInfo) mSpinnercourse.getSelectedItem();
+        String subject =mTextNoteText.getText().toString();
+        String text ="Checkout What I learned In android \" "+course.getTitle() +"\"\n" + mTextNoteText.getText().toString();
+
+        Intent intent=new Intent(Intent.ACTION_SEND);
+        intent.setType("message/rfc28822");
+        intent.putExtra(Intent.EXTRA_SUBJECT,subject);
+        intent.putExtra(Intent.EXTRA_TEXT,text);
+        startActivity(intent);
+
     }
 }
