@@ -32,6 +32,10 @@ public class NoteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
         mSpinnercourse = findViewById(R.id.spinner_course);
         List<CourseInfo> courses = DataManager.getInstance().getCourses();
         ArrayAdapter<CourseInfo> adapterCourses =
@@ -50,6 +54,7 @@ public class NoteActivity extends AppCompatActivity {
 
 
     }
+
 
     @Override
     protected void onPause() {
@@ -124,6 +129,9 @@ public class NoteActivity extends AppCompatActivity {
         if (id == R.id.action_cancel) {
             mIsCancelling = true;
             finish();
+        }
+        if (item.getItemId() == android.R.id.home) {
+            finish(); // close this activity and return to preview activity (if there is any)
         }
 
 
