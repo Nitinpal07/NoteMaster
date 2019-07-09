@@ -4,4 +4,6 @@
     <string name="title_activity_note_list">NoteList</string>
     <string name="action_share">Share</string>
     <string name="action_cancel">Cancel</string>
+    <string name="course">COURSE</string>
+    <string name="title">TITLE</string>
 </resources>
