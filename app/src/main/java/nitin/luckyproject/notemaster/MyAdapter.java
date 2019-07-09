@@ -1,6 +1,7 @@
 package nitin.luckyproject.notemaster;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyHolder>{
 
         holder.mTextcourse.setText(mNote.get(position).getText());
         holder.mTexttitle.setText(mNote.get(position).getTitle());
+        holder.mcurrentposition = position;
+
 
 
     }
@@ -51,11 +54,21 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyHolder>{
 
         public final TextView mTextcourse;
         public final TextView mTexttitle;
+        public int mcurrentposition;
 
         public MyHolder(@NonNull View itemView) {
             super(itemView);
             mTextcourse = itemView.findViewById(R.id.text_course);
             mTexttitle = itemView.findViewById(R.id.text_title);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                Intent intent =new Intent(mContext,NoteActivity.class);
+                intent.putExtra(NoteActivity.NOTE_POSITION,mcurrentposition);
+                mContext.startActivity(intent);
+                }
+            });
         }
     }
 }

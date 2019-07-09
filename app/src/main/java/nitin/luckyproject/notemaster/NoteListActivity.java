@@ -21,6 +21,7 @@ import java.util.List;
 
 public class NoteListActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
+    private MyAdapter mRecycleviewadapter;
 
     //private ArrayAdapter<NoteInfo> mAdapterNotes;
 
@@ -48,6 +49,7 @@ public class NoteListActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
        // mAdapterNotes.notifyDataSetChanged();
+        mRecycleviewadapter.notifyDataSetChanged();
     }
 
     private void initializeDisplayContent() {
@@ -81,9 +83,8 @@ public class NoteListActivity extends AppCompatActivity {
 
         List<NoteInfo> notes =DataManager.getInstance().getNotes();
 
-        MyAdapter recycleviewadapter = new MyAdapter(this,notes);
-        mRecyclerView
-                .setAdapter(recycleviewadapter);
+        mRecycleviewadapter = new MyAdapter(this,notes);
+        mRecyclerView.setAdapter(mRecycleviewadapter);
     }
 
 }
