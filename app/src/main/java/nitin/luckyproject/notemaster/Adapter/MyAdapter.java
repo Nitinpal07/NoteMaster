@@ -1,4 +1,4 @@
-package nitin.luckyproject.notemaster;
+package nitin.luckyproject.notemaster.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+
+import nitin.luckyproject.notemaster.Helperclasses.NoteInfo;
+import nitin.luckyproject.notemaster.NoteActivity;
+import nitin.luckyproject.notemaster.R;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyHolder>{
 
@@ -64,7 +68,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyHolder>{
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                Intent intent =new Intent(mContext,NoteActivity.class);
+                Intent intent =new Intent(mContext, NoteActivity.class);
                 intent.putExtra(NoteActivity.NOTE_POSITION,mcurrentposition);
                 mContext.startActivity(intent);
                 }

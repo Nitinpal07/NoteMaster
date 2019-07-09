@@ -1,4 +1,4 @@
-package nitin.luckyproject.notemaster;
+package nitin.luckyproject.notemaster.Helperclasses;
 
 import java.util.ArrayList;
 import java.util.List;

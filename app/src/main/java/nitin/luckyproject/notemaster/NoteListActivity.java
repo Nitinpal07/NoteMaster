@@ -12,12 +12,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 
 import java.util.List;
+
+import nitin.luckyproject.notemaster.Adapter.MyAdapter;
+import nitin.luckyproject.notemaster.Helperclasses.DataManager;
+import nitin.luckyproject.notemaster.Helperclasses.NoteInfo;
 
 public class NoteListActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
@@ -81,7 +81,7 @@ public class NoteListActivity extends AppCompatActivity {
         LinearLayoutManager noteLinearLayoutManager =new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(noteLinearLayoutManager);
 
-        List<NoteInfo> notes =DataManager.getInstance().getNotes();
+        List<NoteInfo> notes = DataManager.getInstance().getNotes();
 
         mRecycleviewadapter = new MyAdapter(this,notes);
         mRecyclerView.setAdapter(mRecycleviewadapter);

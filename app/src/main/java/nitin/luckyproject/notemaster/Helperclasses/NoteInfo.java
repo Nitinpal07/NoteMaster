@@ -1,8 +1,7 @@
-package nitin.luckyproject.notemaster;
+package nitin.luckyproject.notemaster.Helperclasses;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 
 
 public final class NoteInfo implements Parcelable {

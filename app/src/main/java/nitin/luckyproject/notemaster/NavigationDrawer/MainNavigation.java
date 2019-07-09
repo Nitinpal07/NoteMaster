@@ -1,4 +1,4 @@
-package nitin.luckyproject.notemaster;
+package nitin.luckyproject.notemaster.NavigationDrawer;
 
 import android.os.Bundle;
 
@@ -18,12 +18,23 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.Menu;
+
+import java.util.List;
+
+import nitin.luckyproject.notemaster.Adapter.MyAdapter;
+import nitin.luckyproject.notemaster.Helperclasses.DataManager;
+import nitin.luckyproject.notemaster.Helperclasses.NoteInfo;
+import nitin.luckyproject.notemaster.R;
 
 public class MainNavigation extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private RecyclerView mRecyclerView;
+    private MyAdapter mRecycleviewadapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +56,30 @@ public class MainNavigation extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
+
+
+        initializeDisplayContent();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // mAdapterNotes.notifyDataSetChanged();
+        mRecycleviewadapter.notifyDataSetChanged();
+    }
+
+    private void initializeDisplayContent() {
+
+
+        mRecyclerView = findViewById(R.id.list_item);
+        LinearLayoutManager noteLinearLayoutManager =new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(noteLinearLayoutManager);
+
+        List<NoteInfo> notes = DataManager.getInstance().getNotes();
+
+        mRecycleviewadapter = new MyAdapter(this,notes);
+        mRecyclerView.setAdapter(mRecycleviewadapter);
     }
 
     @Override

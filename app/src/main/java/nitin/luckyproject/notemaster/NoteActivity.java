@@ -14,6 +14,10 @@ import android.widget.Spinner;
 
 import java.util.List;
 
+import nitin.luckyproject.notemaster.Helperclasses.CourseInfo;
+import nitin.luckyproject.notemaster.Helperclasses.DataManager;
+import nitin.luckyproject.notemaster.Helperclasses.NoteInfo;
+
 public class NoteActivity extends AppCompatActivity {
 
     public static final String NOTE_POSITION ="nitin.luckyproject.notemaster.NOTE_POSITION";
