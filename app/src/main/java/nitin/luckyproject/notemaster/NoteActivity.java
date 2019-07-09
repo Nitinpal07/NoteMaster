@@ -160,6 +160,15 @@ public class NoteActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+
+        MenuItem item = menu.findItem(R.id.action_next);
+        int LastNoteIndex = DataManager.getInstance().getNotes().size() -1;
+        item.setEnabled(mNoteposition < LastNoteIndex);
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -197,7 +206,7 @@ public class NoteActivity extends AppCompatActivity {
 
         saveOriginalNoteValue();
         displayNote(mSpinnercourse,mTextNoteTitle,mTextNoteText);
-
+         invalidateOptionsMenu();
 
     }
 
