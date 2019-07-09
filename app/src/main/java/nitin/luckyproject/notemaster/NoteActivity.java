@@ -181,9 +181,24 @@ public class NoteActivity extends AppCompatActivity {
         if (item.getItemId() == android.R.id.home) {
             finish(); // close this activity and return to preview activity (if there is any)
         }
+        if (id == R.id.action_next) {
+            movenext();
+        }
 
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void movenext() {
+        saveNote();
+
+        ++mNoteposition;
+        mNote =DataManager.getInstance().getNotes().get(mNoteposition);
+
+        saveOriginalNoteValue();
+        displayNote(mSpinnercourse,mTextNoteTitle,mTextNoteText);
+
+
     }
 
     private void sendEmail() {
