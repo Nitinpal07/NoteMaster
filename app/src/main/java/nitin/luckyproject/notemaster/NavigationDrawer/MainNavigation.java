@@ -1,5 +1,6 @@
 package nitin.luckyproject.notemaster.NavigationDrawer;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -28,6 +29,8 @@ import java.util.List;
 import nitin.luckyproject.notemaster.Adapter.MyAdapter;
 import nitin.luckyproject.notemaster.Helperclasses.DataManager;
 import nitin.luckyproject.notemaster.Helperclasses.NoteInfo;
+import nitin.luckyproject.notemaster.NoteActivity;
+import nitin.luckyproject.notemaster.NoteListActivity;
 import nitin.luckyproject.notemaster.R;
 
 public class MainNavigation extends AppCompatActivity
@@ -41,14 +44,16 @@ public class MainNavigation extends AppCompatActivity
         setContentView(R.layout.activity_main_navigation);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        //fab
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                startActivity(new Intent(MainNavigation.this, NoteActivity.class));
             }
         });
+
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
