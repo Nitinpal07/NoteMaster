@@ -16,13 +16,13 @@ import nitin.luckyproject.notemaster.Helperclasses.NoteInfo;
 import nitin.luckyproject.notemaster.NoteActivity;
 import nitin.luckyproject.notemaster.R;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyHolder>{
+public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.MyHolder>{
 
     private Context mContext;
     private final LayoutInflater mLayoutInflater;
     private List<NoteInfo> mNote;
 
-    public MyAdapter(Context context, List<NoteInfo> note) {
+    public NoteAdapter(Context context, List<NoteInfo> note) {
         mContext = context;
         mNote = note;
         mLayoutInflater = LayoutInflater.from(mContext);

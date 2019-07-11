@@ -19,6 +19,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,19 +27,22 @@ import android.view.Menu;
 
 import java.util.List;
 
-import nitin.luckyproject.notemaster.Adapter.MyAdapter;
+import nitin.luckyproject.notemaster.Adapter.CourseAdapter;
+import nitin.luckyproject.notemaster.Adapter.NoteAdapter;
+import nitin.luckyproject.notemaster.Helperclasses.CourseInfo;
 import nitin.luckyproject.notemaster.Helperclasses.DataManager;
 import nitin.luckyproject.notemaster.Helperclasses.NoteInfo;
 import nitin.luckyproject.notemaster.NoteActivity;
-import nitin.luckyproject.notemaster.NoteListActivity;
 import nitin.luckyproject.notemaster.R;
 
 public class MainNavigation extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private RecyclerView mRecyclerView;
-    private MyAdapter mRecycleviewadapter;
+    private RecyclerView mRecyclerItem;
+    private NoteAdapter mRecycleviewadapter;
     private LinearLayoutManager mNoteLinearLayoutManager;
+    private CourseAdapter mCourseAdapter;
+    private GridLayoutManager mCourseLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,22 +83,33 @@ public class MainNavigation extends AppCompatActivity
     private void initializeDisplayContent() {
 
 
-        mRecyclerView = findViewById(R.id.list_item);
-        mNoteLinearLayoutManager = new LinearLayoutManager(this);
+        mRecyclerItem = findViewById(R.id.list_item);
 
+        mNoteLinearLayoutManager = new LinearLayoutManager(this);
+        mCourseLayoutManager = new GridLayoutManager(this,2);
 
         List<NoteInfo> notes = DataManager.getInstance().getNotes();
-        mRecycleviewadapter = new MyAdapter(this,notes);
+        mRecycleviewadapter = new NoteAdapter(this,notes);
+        List<CourseInfo> courses = DataManager.getInstance().getCourses();
+        mCourseAdapter = new CourseAdapter(this,courses);
         DisplayNote();
     }
 
     public void DisplayNote(){
-        mRecyclerView.setLayoutManager(mNoteLinearLayoutManager);
-        mRecyclerView.setAdapter(mRecycleviewadapter);
+        mRecyclerItem.setLayoutManager(mNoteLinearLayoutManager);
+        mRecyclerItem.setAdapter(mRecycleviewadapter);
         NavigationView navigationView = findViewById(R.id.nav_view);
         Menu menu =navigationView.getMenu();
         menu.findItem(R.id.nav_notes).setChecked(true);
 
+    }
+    public void DisplayCourse(){
+        mRecyclerItem.setLayoutManager(mCourseLayoutManager);
+        mRecyclerItem.setAdapter(mCourseAdapter);
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        Menu menu =navigationView.getMenu();
+        menu.findItem(R.id.nav_course).setChecked(true);
     }
 
     @Override
@@ -140,6 +155,7 @@ public class MainNavigation extends AppCompatActivity
             DisplayNote();
         } else if (id == R.id.nav_course) {
             handleselection("Course");
+            DisplayCourse();
         }
         else if (id == R.id.nav_share) {
             handleselection("Share");

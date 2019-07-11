@@ -15,13 +15,13 @@ import android.view.View;
 
 import java.util.List;
 
-import nitin.luckyproject.notemaster.Adapter.MyAdapter;
+import nitin.luckyproject.notemaster.Adapter.NoteAdapter;
 import nitin.luckyproject.notemaster.Helperclasses.DataManager;
 import nitin.luckyproject.notemaster.Helperclasses.NoteInfo;
 
 public class NoteListActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
-    private MyAdapter mRecycleviewadapter;
+    private NoteAdapter mRecycleviewadapter;
 
     //private ArrayAdapter<NoteInfo> mAdapterNotes;
 
@@ -83,7 +83,7 @@ public class NoteListActivity extends AppCompatActivity {
 
         List<NoteInfo> notes = DataManager.getInstance().getNotes();
 
-        mRecycleviewadapter = new MyAdapter(this,notes);
+        mRecycleviewadapter = new NoteAdapter(this,notes);
         mRecyclerView.setAdapter(mRecycleviewadapter);
     }
 
