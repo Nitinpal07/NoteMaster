@@ -38,6 +38,8 @@ public class MainNavigation extends AppCompatActivity
 
     private RecyclerView mRecyclerView;
     private MyAdapter mRecycleviewadapter;
+    private LinearLayoutManager mNoteLinearLayoutManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,13 +80,21 @@ public class MainNavigation extends AppCompatActivity
 
 
         mRecyclerView = findViewById(R.id.list_item);
-        LinearLayoutManager noteLinearLayoutManager =new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(noteLinearLayoutManager);
+        mNoteLinearLayoutManager = new LinearLayoutManager(this);
+
 
         List<NoteInfo> notes = DataManager.getInstance().getNotes();
-
         mRecycleviewadapter = new MyAdapter(this,notes);
+        DisplayNote();
+    }
+
+    public void DisplayNote(){
+        mRecyclerView.setLayoutManager(mNoteLinearLayoutManager);
         mRecyclerView.setAdapter(mRecycleviewadapter);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        Menu menu =navigationView.getMenu();
+        menu.findItem(R.id.nav_notes).setChecked(true);
+
     }
 
     @Override
@@ -125,22 +135,25 @@ public class MainNavigation extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_home) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_tools) {
-
-        } else if (id == R.id.nav_share) {
-
+        if (id == R.id.nav_notes) {
+            // Handle the notes action
+            DisplayNote();
+        } else if (id == R.id.nav_course) {
+            handleselection("Course");
+        }
+        else if (id == R.id.nav_share) {
+            handleselection("Share");
         } else if (id == R.id.nav_send) {
-
+            handleselection("Send");
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void handleselection(String msg) {
+        View view =findViewById(R.id.list_item);
+        Snackbar.make(view,msg,Snackbar.LENGTH_LONG).show();
     }
 }

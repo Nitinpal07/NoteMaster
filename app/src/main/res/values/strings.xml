@@ -21,4 +21,6 @@
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
     <string name="notemaster">NoteMaster</string>
+    <string name="menu_notes">Notes</string>
+    <string name="menu_course">Course</string>
 </resources>
