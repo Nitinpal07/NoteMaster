@@ -8,12 +8,20 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".NavigationDrawer.MainNavigation">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="nitin.luckyproject.notemaster.NavigationDrawer.MainNavigation" />
+        </activity>
         <activity
             android:name=".NavigationDrawer.MainNavigation"
             android:label="@string/notemaster"
@@ -27,14 +35,11 @@
         <activity
             android:name=".NoteListActivity"
             android:label="@string/title_activity_note_list"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".NoteActivity"
             android:label="EditNote"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

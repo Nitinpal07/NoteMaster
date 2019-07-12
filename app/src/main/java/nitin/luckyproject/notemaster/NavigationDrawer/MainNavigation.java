@@ -34,6 +34,7 @@ import nitin.luckyproject.notemaster.Helperclasses.DataManager;
 import nitin.luckyproject.notemaster.Helperclasses.NoteInfo;
 import nitin.luckyproject.notemaster.NoteActivity;
 import nitin.luckyproject.notemaster.R;
+import nitin.luckyproject.notemaster.SettingsActivity;
 
 public class MainNavigation extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -138,6 +139,7 @@ public class MainNavigation extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            startActivity(new Intent(this, SettingsActivity.class));
             return true;
         }
 
